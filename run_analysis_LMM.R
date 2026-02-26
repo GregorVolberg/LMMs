@@ -119,7 +119,7 @@ for (perm_run in 1:dim(n_random)[1]){
 
 unique_id_list <- df_sta %>% 
   summarize(n = n(), .by = c(ID, list)) %>%
-  arrange(sample(1:nrow(unique_id_list))) # shuffle rows
+  arrange(sample(1:nrow(.))) # shuffle rows
 
 df_dummy <- df_sta  
 uid <- unique_id_list
