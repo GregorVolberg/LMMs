@@ -1,7 +1,27 @@
 library(tidyverse)
 library(lme4)
+library(lmerTest)
+#library(nlme) % the data is also contained in nlme
+
+hsb <- read_csv("hsb.csv") %>%
+  mutate_if(is.character, as_factor)
+
+# Raudenbush (2002), Chapter 4, p. 70
+model1 <- lmer(mathach ~ 1 + (1|id), data = hsb) # intercept only
+summary(model1)
+
+model2 <- lmer(mathach ~ 1 + meanses + (1|id), data = hsb) # intercept only
+summary(model2)
 
 
+lmer(mathach ~ ses + (1 | id), data = hsb, REML = TRUE)
+mean(hsb$mathach)
+
+nv <- function(x, m, s){
+  (1/(sqrt(2*pi*s^2))) * exp (- (((x-m)^2) / (2*s^2)) )
+}
+
+  
 politeness <- read_csv("politeness_data.csv") %>%
   mutate(across(subject:attitude, as_factor))
 
